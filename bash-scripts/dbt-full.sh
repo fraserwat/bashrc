@@ -15,20 +15,20 @@ function dbt_full_run() {
         # Models downstream from input
         for var in "$@"
         do
-            if [[ "$var" == "-excl" ]]
-            then
-				EXCL=true
-			else
-				EXCL=false
-            fi
+        	if [[ "$var" == "-excl" ]]
+        	then
+			EXCL=true
+		else
+			EXCL=false
+            	fi
         done
 		# Don't bother seeding if i've already got everything upstream pre-built
 		if [[ $EXCL != true ]]
-        then
-            MODEL="${MODEL//+/}"
-            dbt seed -m $MODEL
-        fi
-		dbt run -m $MODEL && \
-		dbt test -m $MODEL
+	        then
+            		MODEL="${MODEL//+/}"
+			dbt seed -m $MODEL
+	        fi
+			dbt run -m $MODEL && \
+			dbt test -m $MODEL
 	fi
 }
